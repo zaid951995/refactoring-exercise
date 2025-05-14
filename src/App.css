@@ -1,0 +1,30 @@
+.country-select {
+  padding: 12px;
+  border: 4px solid #2ec4b6;
+  border-radius: 8px;
+}
+
+.player-select {
+  padding: 12px;
+  border: 4px solid #e71d36;
+  border-radius: 8px;
+}
+
+.country-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+  max-width: 400px;
+}
+.player-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+  max-width: 400px;
+}
+
+.result-box {
+  max-width: 400px;
+}
