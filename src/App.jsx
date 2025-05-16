@@ -1,45 +1,43 @@
-import "./App.css";
+import classes from "./App.module.css";
 import { useState } from "react";
-import Refactoring from "./components/Refactoring";
-import { countries, players, countryNameMap, playerNameMap } from "./Constants";
+import { countries, players } from "./data/Constants";
+import { DropDown } from "./components/Dropdown";
 
 function App() {
   const [selectedCountry, setSelectedCountry] = useState("de");
   const [selectedPlayer, setSelectedPlayer] = useState("jm");
-  console.log(selectedCountry);
-  console.log(selectedPlayer);
-  return (
-    <>
-      <div className="country-box">
-        <Refactoring
-          id="countries"
-          label="Wer wird Weltmeister?"
-          value={selectedCountry}
-          onChange={setSelectedCountry}
-          options={countries}
-          className="country-select"
-        />
-      </div>
 
-      <div className="player-box">
-        <Refactoring
-          id="players"
-          label="Wer wird Spieler des Turniers?"
-          value={selectedPlayer}
-          onChange={setSelectedPlayer}
-          options={players}
-          className="player-select"
-        />
-      </div>
-      <div className="result-box">
+  function mapToOptions(data) {
+    return Object.keys(data).map((key) => ({
+      value: key,
+      label: data[key],
+    }));
+  }
+
+  return (
+    <main className={classes.container}>
+      <DropDown
+        label="Wer wird Weltmeister?"
+        value={selectedCountry}
+        options={mapToOptions(countries)}
+        onChange={(country) => setSelectedCountry(country)}
+      />
+      <DropDown
+        label="Wer wird Spieler des Turniers?"
+        value={selectedPlayer}
+        options={mapToOptions(players)}
+        onChange={(player) => setSelectedPlayer(player)}
+        style={{ borderColor: "#e71d36" }}
+      />
+      <section>
         <h2>Deine Auswahl</h2>
         <p>
-          Du hast <strong>{countryNameMap[selectedCountry]}</strong> als
-          Weltmeister und <strong>{playerNameMap[selectedPlayer]}</strong> als
-          Spieler des Turniers gewählt.
+          Du hast <strong>{countries[selectedCountry]}</strong> als Weltmeister
+          und <strong>{players[selectedPlayer]}</strong> als Spieler des
+          Turniers gewählt.
         </p>
-      </div>
-    </>
+      </section>
+    </main>
   );
 }
 
