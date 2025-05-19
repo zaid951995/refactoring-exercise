@@ -1,32 +1,43 @@
-import classes from "./App.module.css";
-import { useState } from "react";
+import styles from "./App.module.css";
+import { useState, useMemo } from "react";
 import { countries, players } from "./data/Constants";
 import { DropDown } from "./components/Dropdown";
 
-function App() {
+const App = () => {
   const [selectedCountry, setSelectedCountry] = useState("de");
   const [selectedPlayer, setSelectedPlayer] = useState("jm");
 
-  function mapToOptions(data) {
-    return Object.keys(data).map((key) => ({
-      value: key,
-      label: data[key],
-    }));
-  }
+  const countryOptions = useMemo(
+    () =>
+      Object.entries(countries).map(([key, label]) => ({
+        value: key,
+        label,
+      })),
+    []
+  );
+
+  const playerOptions = useMemo(
+    () =>
+      Object.entries(players).map(([key, label]) => ({
+        value: key,
+        label,
+      })),
+    []
+  );
 
   return (
-    <main className={classes.container}>
+    <main className={styles.container}>
       <DropDown
         label="Wer wird Weltmeister?"
         value={selectedCountry}
-        options={mapToOptions(countries)}
-        onChange={(country) => setSelectedCountry(country)}
+        options={countryOptions}
+        onChange={setSelectedCountry}
       />
       <DropDown
         label="Wer wird Spieler des Turniers?"
         value={selectedPlayer}
-        options={mapToOptions(players)}
-        onChange={(player) => setSelectedPlayer(player)}
+        options={playerOptions}
+        onChange={setSelectedPlayer}
         style={{ borderColor: "#e71d36" }}
       />
       <section>
@@ -39,6 +50,6 @@ function App() {
       </section>
     </main>
   );
-}
+};
 
 export default App;

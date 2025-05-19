@@ -1,31 +1,33 @@
-import classes from "./DropDown.module.css";
+import styles from "./DropDown.module.css";
 import clsx from "clsx";
 
-export function DropDown({
+export const DropDown = ({
   label,
   options,
   value,
   onChange,
   className,
   ...props
-}) {
+}) => {
+  const handleChange = (event) => {
+    onChange(event.target.value);
+  };
+
   return (
-    <label className={classes.label}>
+    <label className={styles.label}>
       {label}
       <select
         value={value}
-        onChange={(e) => {
-          onChange(e.target.value);
-        }}
-        className={clsx([classes.select, className])}
+        onChange={handleChange}
+        className={clsx(styles.select, className)}
         {...props}
       >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+        {options.map(({ value, label }) => (
+          <option key={value} value={value}>
+            {label}
           </option>
         ))}
       </select>
     </label>
   );
-}
+};
