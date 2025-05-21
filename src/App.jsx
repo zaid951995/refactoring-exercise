@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import { useState, useMemo } from "react";
 import { countries, players } from "./data/Constants";
-import { DropDown } from "./components/Dropdown";
+import { DropDown } from "./components/DropDown";
 
 const App = () => {
   const [selectedCountry, setSelectedCountry] = useState("de");
@@ -32,13 +32,14 @@ const App = () => {
         value={selectedCountry}
         options={countryOptions}
         onChange={setSelectedCountry}
+        variant="primary"
       />
       <DropDown
         label="Wer wird Spieler des Turniers?"
         value={selectedPlayer}
         options={playerOptions}
         onChange={setSelectedPlayer}
-        style={{ borderColor: "#e71d36" }}
+        variant="secondary"
       />
       <section>
         <h2>Deine Auswahl</h2>
