@@ -7,6 +7,7 @@ export const DropDown = ({
   value,
   onChange,
   className,
+  variant = "",
   ...props
 }) => {
   const handleChange = (event) => {
@@ -18,8 +19,10 @@ export const DropDown = ({
       {label}
       <select
         value={value}
-        onChange={handleChange}
-        className={clsx(styles.select, className)}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+        className={clsx([classes.select, className])}
         {...props}
       >
         {options.map(({ value, label }) => (
