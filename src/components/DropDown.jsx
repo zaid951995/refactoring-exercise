@@ -1,7 +1,7 @@
-import styles from "./DropDown.module.css";
+import classes from "./DropDown.module.css";
 import clsx from "clsx";
 
-export const DropDown = ({
+export function DropDown({
   label,
   options,
   value,
@@ -9,28 +9,24 @@ export const DropDown = ({
   className,
   variant = "",
   ...props
-}) => {
-  const handleChange = (event) => {
-    onChange(event.target.value);
-  };
-
+}) {
   return (
-    <label className={styles.label}>
+    <label className={classes.label}>
       {label}
       <select
         value={value}
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        className={clsx([classes.select, className])}
+        className={clsx([classes[variant], className])}
         {...props}
       >
-        {options.map(({ value, label }) => (
-          <option key={value} value={value}>
-            {label}
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>
     </label>
   );
-};
+}
