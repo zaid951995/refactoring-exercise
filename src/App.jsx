@@ -1,6 +1,7 @@
 import classes from "./App.module.css";
 import { useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   countries,
   players,
@@ -52,6 +53,12 @@ import { countries, players } from "./data/Constants";
 import { DropDown } from "./components/Dropdown";
 
 function App() {
+=======
+import { countries, players } from "./data/Constants";
+import { DropDown } from "./components/Dropdown";
+
+function App() {
+>>>>>>> main
   const [selectedCountry, setSelectedCountry] = useState("de");
   const [selectedPlayer, setSelectedPlayer] = useState("jm");
 
