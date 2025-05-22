@@ -1,56 +1,61 @@
-import styles from "./App.module.css";
-import { useState, useMemo } from "react";
-import { countries, players } from "./data/Constants";
-import { DropDown } from "./components/DropDown";
+import classes from "./App.module.css";
+import { useState } from "react";
+import {
+  countries,
+  players,
+  countryOptions,
+  playerOptions,
+} from "./data/Constants";
+import { DropDown } from "./components/Dropdown";
 
-const App = () => {
-  const [selectedCountry, setSelectedCountry] = useState("de");
-  const [selectedPlayer, setSelectedPlayer] = useState("jm");
+function App() {
+  const [selections, setSelections] = useState({
+    country: "de",
+    player: "jm",
+  });
 
-  const countryOptions = useMemo(
-    () =>
-      Object.entries(countries).map(([key, label]) => ({
-        value: key,
-        label,
-      })),
-    []
-  );
+  const config = [
+    {
+      label: "Wer wird Weltmeister?",
+      valueKey: "country",
+      options: countryOptions,
+      variant: "primary",
+    },
+    {
+      label: "Wer wird Spieler des Turniers?",
+      valueKey: "player",
+      options: playerOptions,
+      variant: "secondary",
+    },
+  ];
 
-  const playerOptions = useMemo(
-    () =>
-      Object.entries(players).map(([key, label]) => ({
-        value: key,
-        label,
-      })),
-    []
-  );
+  const handleChange = (key, value) => {
+    setSelections((prev) => ({ ...prev, [key]: value }));
+  };
 
   return (
-    <main className={styles.container}>
-      <DropDown
-        label="Wer wird Weltmeister?"
-        value={selectedCountry}
-        options={countryOptions}
-        onChange={setSelectedCountry}
-        variant="primary"
-      />
-      <DropDown
-        label="Wer wird Spieler des Turniers?"
-        value={selectedPlayer}
-        options={playerOptions}
-        onChange={setSelectedPlayer}
-        variant="secondary"
-      />
+    <main className={classes.container}>
+      {config.map(({ label, valueKey, options, ...rest }) => (
+        <DropDown
+          key={valueKey}
+          label={label}
+          value={selections[valueKey]}
+          options={options}
+          onChange={(val) => handleChange(valueKey, val)}
+          {...rest}
+        />
+      ))}
+
       <section>
         <h2>Deine Auswahl</h2>
         <p>
-          Du hast <strong>{countries[selectedCountry]}</strong> als Weltmeister
-          und <strong>{players[selectedPlayer]}</strong> als Spieler des
-          Turniers gewählt.
+          Du hast <strong>{countries[selections.country]}</strong> als
+          Weltmeister und <strong>{players[selections.player]}</strong> als
+          Spieler des Turniers gewählt.
         </p>
       </section>
     </main>
   );
-};
+}
 
 export default App;
