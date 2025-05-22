@@ -6,7 +6,6 @@ export function DropDown({
   options,
   value,
   onChange,
-  className,
   variant = "",
   ...props
 }) {
@@ -18,7 +17,7 @@ export function DropDown({
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        className={clsx([classes[variant], className])}
+        className={clsx([classes[variant]])}
         {...props}
       >
         {options.map((option) => (
